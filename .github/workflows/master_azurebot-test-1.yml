@@ -1,0 +1,42 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Python app to Azure Web App - azurebot-test-1
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Set up Python version
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.6'
+
+    - name: Install Python dependencies
+      run: |
+        python -m venv env
+        cd env/Scripts/
+        chmod -R 777 ./activate
+        ./activate
+        cd ../../
+        pip install -r requirements.txt
+    - name: Zip the application files
+      run: |
+        sudo apt-get install zip gzip tar
+        zip -r myapp.zip .
+
+    - name: 'Deploy to Azure Web App'
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: 'azurebot-test-1'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_8edd43e10e6b4a81a7369df8afb70f2f }}
+        package: './myapp.zip'
