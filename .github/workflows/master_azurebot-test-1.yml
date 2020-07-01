@@ -27,8 +27,6 @@ jobs:
         chmod -R 777 ./activate
         ./activate
         cd ../../
-        sudo apt-get install python3.6
-        python3.6 -m pip install aiohttp
         pip install --user -r requirements.txt
     - name: Zip the application files
       run: |
