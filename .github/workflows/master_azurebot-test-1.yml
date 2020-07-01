@@ -27,7 +27,7 @@ jobs:
         chmod -R 777 ./activate
         ./activate
         cd ../../
-        pip install -r requirements.txt
+        pip install -r --user requirements.txt
     - name: Zip the application files
       run: |
         sudo apt-get install zip gzip tar
