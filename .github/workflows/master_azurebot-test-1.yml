@@ -27,8 +27,8 @@ jobs:
         chmod -R 777 ./activate
         ./activate
         cd ../../
-        sudo apt install python-pip
-        pip install --user -r requirements.txt
+        sudo apt install python3-pip
+        pip3 install --user -r requirements.txt
     - name: Zip the application files
       run: |
         sudo apt-get install zip gzip tar
