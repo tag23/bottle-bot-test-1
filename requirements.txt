@@ -1,3 +1,2 @@
-aiohttp==3.0.6
-botbuilder
+botbuilder-integration-aiohttp>=4.9.1
 bottle<1
