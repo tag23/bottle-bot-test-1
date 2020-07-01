@@ -1,1 +1,3 @@
+botbuilder
+aiohttp
 bottle<1
