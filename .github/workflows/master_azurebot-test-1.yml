@@ -32,11 +32,11 @@ jobs:
       run: |
         sudo apt-get install zip gzip tar
         zip -r myapp.zip .
-
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v1
       with:
         app-name: 'azurebot-test-1'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_8edd43e10e6b4a81a7369df8afb70f2f }}
+
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_8630fb021e6f4db6a8107f4c9aaca965 }}
         package: './myapp.zip'
