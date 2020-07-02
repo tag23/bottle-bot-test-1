@@ -27,6 +27,7 @@ jobs:
         chmod -R 777 ./activate
         ./activate
         chmod -R 777 ./python.exe
+        ls
         ./python.exe -m pip install --user -r requirements.txt
     - name: Zip the application files
       run: |
