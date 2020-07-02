@@ -25,10 +25,9 @@ jobs:
         python -m venv env
         cd env/Scripts/
         chmod -R 777 ./activate
-        gdfgdfg
         ./activate
         cd ../../
-        pip install --user -r requirements.txt
+        pip3 install --user -r requirements.txt
     - name: Zip the application files
       run: |
         sudo apt-get install zip gzip tar
