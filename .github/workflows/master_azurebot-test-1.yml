@@ -26,9 +26,7 @@ jobs:
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
-        chmod -R 777 ./pip.exe
-        ls
-        ./pip.exe install --user -r requirements.txt
+        pip install --user -r requirements.txt
     - name: Zip the application files
       run: |
         sudo apt-get install zip gzip tar
