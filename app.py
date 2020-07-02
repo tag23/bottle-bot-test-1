@@ -5,6 +5,7 @@ import os
 import sys
 import bottle
 from http import HTTPStatus
+import aiohttp
 from aiohttp import web
 from aiohttp.web import Request, Response, json_response
 from botbuilder.core.integration import aiohttp_error_middleware
@@ -13,10 +14,10 @@ from botbuilder.core.integration import aiohttp_error_middleware
 from botbuilder.core import BotFrameworkAdapter, BotFrameworkAdapterSettings, ConversationState, MemoryStorage, TurnContext, UserState
 
 
-from config import DefaultConfig
+from .config import DefaultConfig
 from botbuilder.schema import Activity
 
-from bots import CustomPromptBot
+from .bots import CustomPromptBot
 
 CONFIG = DefaultConfig()
 
