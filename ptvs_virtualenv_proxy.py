@@ -68,22 +68,22 @@ def get_wsgi_handler(handler_name):
     handler = None
     last_tb = ''
 
-    # while module_name:
-    #     try:
-    #         handler = __import__(module_name, fromlist=[name_list[0][0]])
-    #         last_tb = ''
-    #         for name, should_call in name_list:
-    #             handler = getattr(handler, name)
-    #             if should_call:
-    #                 handler = handler()
-    #         break
-    #     except ImportError:
-    #         module_name, _, callable_name = module_name.rpartition('.')
-    #         should_call = callable_name.endswith('()')
-    #         callable_name = callable_name[:-2] if should_call else callable_name
-    #         name_list.insert(0, (callable_name, should_call))
-    #         handler = None
-    #         last_tb = ': ' + traceback.format_exc()
+    while module_name:
+        try:
+            handler = __import__(module_name, fromlist=[name_list[0][0]])
+            last_tb = ''
+            for name, should_call in name_list:
+                handler = getattr(handler, name)
+                if should_call:
+                    handler = handler()
+            break
+        except ImportError:
+            module_name, _, callable_name = module_name.rpartition('.')
+            should_call = callable_name.endswith('()')
+            callable_name = callable_name[:-2] if should_call else callable_name
+            name_list.insert(0, (callable_name, should_call))
+            handler = None
+            last_tb = ': ' + traceback.format_exc()
     
     if handler is None:
         raise ValueError('"%s" could not be imported%s' % (handler_name, last_tb))
