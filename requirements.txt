@@ -2,4 +2,4 @@ botbuilder-integration-aiohttp>=4.9.1
 aiohttp
 botbuilder
 botbuilder-core
-bottle<1
+bottle
