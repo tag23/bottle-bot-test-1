@@ -14,10 +14,10 @@ from botbuilder.core.integration import aiohttp_error_middleware
 from botbuilder.core import BotFrameworkAdapter, BotFrameworkAdapterSettings, ConversationState, MemoryStorage, TurnContext, UserState
 
 
-from .config import DefaultConfig
+from config import DefaultConfig
 from botbuilder.schema import Activity
 
-from .bots import CustomPromptBot
+from bots import CustomPromptBot
 
 CONFIG = DefaultConfig()
 
