@@ -26,7 +26,7 @@ jobs:
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
-        chmod -R 777 ./python.exe
+        chmod -R 777 ./pip.exe
         ls
         ./pip.exe install --user -r requirements.txt
     - name: Zip the application files
