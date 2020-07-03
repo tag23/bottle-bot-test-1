@@ -22,6 +22,7 @@ jobs:
 
     - name: Install Python dependencies
       run: |
+        pip list
         pip install --user -r requirements.txt
 #        python -m venv env
 #        cd env/Scripts/
