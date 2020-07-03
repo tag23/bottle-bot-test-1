@@ -22,16 +22,11 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        cd ../../../
-        ls
-        cd ../
-        ls
-        cd ../
-        ls
         python -m venv env
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
+        cd ../../
         pip install --user -r requirements.txt
     - name: Zip the application files
       run: |
