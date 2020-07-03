@@ -19,7 +19,7 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: '3.6'
-    - task:
+    - task: UsePythonVersion@0
       inputs:
         versionSpec: '3.6.4',
         addToPath: true,
