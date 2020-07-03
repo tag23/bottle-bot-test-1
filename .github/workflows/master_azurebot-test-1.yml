@@ -11,8 +11,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      python-version: [3.4, 3.6.4, 3.6.6]
+
     steps:
     - uses: actions/checkout@master
 
