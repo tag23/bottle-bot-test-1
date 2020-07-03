@@ -11,14 +11,15 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    strategy:
+      python-version: [3.4, 3.6.4, 3.6.6]
     steps:
     - uses: actions/checkout@master
 
     - name: Set up Python version
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.6'
+        python-version: '3.6.6'
         addToPath: true,
         architecture: 'x64'
     - name: Install Python dependencies
