@@ -5,7 +5,7 @@ from enum import Enum
 
 
 class Question(Enum):
-    NAME = 1
+    ALLOCATION = 1
     AGE = 2
     DATE = 3
     NONE = 4

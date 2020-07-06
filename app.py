@@ -5,10 +5,10 @@ import os
 import sys
 import bottle
 from http import HTTPStatus
-import aiohttp
+
 from aiohttp import web
 from aiohttp.web import Request, Response, json_response
-import botbuilder
+
 from botbuilder.core.integration import aiohttp_error_middleware
 # routes contains the HTTP handlers for our server and must be imported.
 # import routes

@@ -13,7 +13,8 @@ from botbuilder.core import (
     UserState,
     MessageFactory,
 )
-
+from botbuilder.schema import Activity
+import json
 from data_models import ConversationFlow, Question, UserProfile
 
 
@@ -39,7 +40,7 @@ class CustomPromptBot(ActivityHandler):
 
         self.conversation_state = conversation_state
         self.user_state = user_state
-
+        self.ALLOCATION_TYPES = ['google', 'number', 'list', 'sequence', 'mass', 'template']
         self.flow_accessor = self.conversation_state.create_property("ConversationFlow")
         self.profile_accessor = self.user_state.create_property("UserProfile")
 
@@ -57,31 +58,37 @@ class CustomPromptBot(ActivityHandler):
     async def _fill_out_user_profile(
         self, flow: ConversationFlow, profile: UserProfile, turn_context: TurnContext
     ):
+        print('JSON')
+        try:
+            print('ACTIVITY', json.dumps(Activity.serialize(turn_context.activity)))
+        except Exception as e:
+            print(e)
         user_input = turn_context.activity.text.strip()
 
         # ask for name
         if flow.last_question_asked == Question.NONE:
             await turn_context.send_activity(
-                MessageFactory.text("Let's get started. What is your name?")
+                MessageFactory.text("Let's get started. Choose the type of allocation you want")
             )
-            flow.last_question_asked = Question.NAME
+            flow.last_question_asked = Question.ALLOCATION
 
         # validate name then ask for age
-        elif flow.last_question_asked == Question.NAME:
-            validate_result = self._validate_name(user_input)
+        elif flow.last_question_asked == Question.ALLOCATION:
+            validate_result = self._recognize_allocation(user_input)
             if not validate_result.is_valid:
                 await turn_context.send_activity(
                     MessageFactory.text(validate_result.message)
                 )
             else:
                 profile.name = validate_result.value
+                print(profile)
                 await turn_context.send_activity(
                     MessageFactory.text(f"Hi {profile.name}")
                 )
                 await turn_context.send_activity(
                     MessageFactory.text("How old are you?")
                 )
-                flow.last_question_asked = Question.AGE
+                flow.last_question_asked = Question.NONE
 
         # validate age then ask for date
         elif flow.last_question_asked == Question.AGE:
@@ -98,7 +105,7 @@ class CustomPromptBot(ActivityHandler):
                 await turn_context.send_activity(
                     MessageFactory.text("When is your flight?")
                 )
-                flow.last_question_asked = Question.DATE
+                # flow.last_question_asked = Question.DATE
 
         # validate date and wrap it up
         elif flow.last_question_asked == Question.DATE:
@@ -123,6 +130,24 @@ class CustomPromptBot(ActivityHandler):
                     MessageFactory.text("Type anything to run the bot again.")
                 )
                 flow.last_question_asked = Question.NONE
+
+    def _recognize_allocation(self, user_input: str) -> ValidationResult:
+
+        if not user_input:
+            return ValidationResult(
+                is_valid=False,
+                message="Please enter a allocation type that contains an valid type of following list:\n Google;\n "
+                        "Number;\n List;\n Sequence;\n Mass;\n Template List.",
+            )
+
+        if user_input.lower() in self.ALLOCATION_TYPES:
+            return ValidationResult(is_valid=True, value=user_input)
+        else:
+            return ValidationResult(
+                is_valid=False,
+                message="Please enter a allocation type that contains an valid type of following list:\n Google;\n "
+                        "Number;\n List;\n Sequence;\n Mass;\n Template List.",
+            )
 
     def _validate_name(self, user_input: str) -> ValidationResult:
         if not user_input:
