@@ -1,6 +1,7 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 
+import requests
 from datetime import datetime
 
 from recognizers_number import recognize_number, Culture
@@ -18,6 +19,9 @@ import json
 from data_models import ConversationFlow, Question, UserProfile
 
 
+STATUS_CODE__SUCCESS = 200
+
+
 class ValidationResult:
     def __init__(
         self, is_valid: bool = False, value: object = None, message: str = None
@@ -25,7 +29,6 @@ class ValidationResult:
         self.is_valid = is_valid
         self.value = value
         self.message = message
-
 
 class CustomPromptBot(ActivityHandler):
     def __init__(self, conversation_state: ConversationState, user_state: UserState):
@@ -43,6 +46,9 @@ class CustomPromptBot(ActivityHandler):
         self.ALLOCATION_TYPES = ['google', 'number', 'list', 'sequence', 'mass', 'template']
         self.flow_accessor = self.conversation_state.create_property("ConversationFlow")
         self.profile_accessor = self.user_state.create_property("UserProfile")
+        self.user_skype_object = None
+        self.user_skype_login = None
+        self.auth = False
 
     async def on_message_activity(self, turn_context: TurnContext):
         # Get the state properties from the turn context.
@@ -55,22 +61,58 @@ class CustomPromptBot(ActivityHandler):
         await self.conversation_state.save_changes(turn_context)
         await self.user_state.save_changes(turn_context)
 
+    def update_user_object(self, user_object):
+        if user_object:
+            self.user_skype_object = user_object
+
+    def update_user_login(self, user_object):
+        if user_object \
+                and user_object.get('from') \
+                and user_object['from'].get('name') \
+                and user_object != self.user_skype_login:
+            self.user_skype_login = user_object['from']['name']
+
+    def get_account_by_login(self, login):
+        try:
+            response = requests.post(url='http://10.0.22.62/api/v1.0',
+                                     json={'id': None, 'jsonrpc': '2.0', 'method': 'account:get_list', 'params': {'filter': {'messenger': login}}})
+            print('RESPONCSE,', response.json())
+            if response.status_code == STATUS_CODE__SUCCESS:
+                response_data = response.json()['account_list']
+                print(response_data)
+
+                if len(response_data) == 1:
+                    return response_data.pop()
+        except Exception as err:
+            print(err)
+        return None
+
+
     async def _fill_out_user_profile(
         self, flow: ConversationFlow, profile: UserProfile, turn_context: TurnContext
     ):
-        print('JSON')
-        try:
-            print('ACTIVITY', json.dumps(Activity.serialize(turn_context.activity)))
-        except Exception as e:
-            print(e)
+        user_object = dict(eval(json.dumps(Activity.serialize(turn_context.activity))))
+        self.update_user_login(user_object)
+
         user_input = turn_context.activity.text.strip()
 
         # ask for name
         if flow.last_question_asked == Question.NONE:
-            await turn_context.send_activity(
-                MessageFactory.text("Let's get started. Choose the type of allocation you want")
-            )
-            flow.last_question_asked = Question.ALLOCATION
+            auth_user = self.get_account_by_login(self.user_skype_login)
+            self.update_user_object(auth_user)
+
+            if not self.user_skype_object:
+                await turn_context.send_activity(
+                    MessageFactory.text("We can't identify you. Please contact to support skype")
+                )
+            else:
+                await turn_context.send_activity(
+                    MessageFactory.text(f"Hello, {self.user_skype_object['name']}")
+                )
+            self.auth = True if self.user_skype_object else False
+
+            if self.auth:
+                flow.last_question_asked = Question.ALLOCATION
 
         # validate name then ask for age
         elif flow.last_question_asked == Question.ALLOCATION:
