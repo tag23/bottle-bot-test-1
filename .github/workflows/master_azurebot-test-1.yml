@@ -23,12 +23,12 @@ jobs:
         architecture: 'x64'
     - name: Install Python dependencies
       run: |
-        echo "::add-path::/home/python364x86"
         python -m venv env
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
         cd ../../
+        ls
         pip install -e ./libraries/botbuilder-schema
         pip install -e ./libraries/botframework-connector
         pip install -e ./libraries/botbuilder-core
