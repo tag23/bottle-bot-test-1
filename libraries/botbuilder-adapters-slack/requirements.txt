@@ -1,0 +1,4 @@
+aiohttp==3.6.2
+pyslack
+botbuilder-core==4.10.0
+slackclient
