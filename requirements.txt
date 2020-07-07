@@ -3,3 +3,5 @@ aiohttp
 botbuilder
 botbuilder-core
 bottle
+recognizers_number
+recognizers_date_time
