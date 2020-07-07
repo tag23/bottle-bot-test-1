@@ -29,8 +29,7 @@ jobs:
         ./activate
 
         cd ../../
-        cd ../../../../../../opt/
-        sudo find . -name Python
+        cd ../../../../../../opt/hostedtoolcache/Python/
         ls
 #        pip install -e ./libraries/botbuilder-schema
 #        pip install -e ./libraries/botframework-connector
