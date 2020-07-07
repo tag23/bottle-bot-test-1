@@ -27,6 +27,7 @@ jobs:
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
+        cd ../../
         pip install -r requirements.txt
 #        cd ../../
 #        pip install --target=/opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6 -r requirements.txt
