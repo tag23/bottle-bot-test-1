@@ -42,7 +42,7 @@ jobs:
         pip install -e ./libraries/botbuilder-testing
         pip install --user -r requirements.txt
         sudo find . -name opt
-        cd ../../../../../../
+        cd ../../../../../../opt/
         ls
     - name: Zip the application files
       run: |
