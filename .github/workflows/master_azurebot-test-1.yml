@@ -27,7 +27,7 @@ jobs:
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
-        cd home
+        cd ./home
         ls
         pip install -e ./libraries/botbuilder-schema
         pip install -e ./libraries/botframework-connector
