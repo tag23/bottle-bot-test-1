@@ -29,6 +29,9 @@ jobs:
         ./activate
 
         cd ../../
+        cd ../../../../../../opt/
+        sudo find . -name Python
+        ls
 #        pip install -e ./libraries/botbuilder-schema
 #        pip install -e ./libraries/botframework-connector
 #        pip install -e ./libraries/botbuilder-core
@@ -42,9 +45,7 @@ jobs:
 #        pip install -e ./libraries/botbuilder-testing
 #        pip install --user -r requirements.txt
 
-        cd ../../../../../../opt/
-        sudo find . -name Python
-        ls
+
     - name: Zip the application files
       run: |
         sudo apt-get install zip gzip tar
