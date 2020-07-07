@@ -28,7 +28,7 @@ jobs:
         chmod -R 777 ./activate
         ./activate
         cd ../../../../../../
-        sudo find . -name python364x86
+        sudo find . -name opt
         pip install -e ./libraries/botbuilder-schema
         pip install -e ./libraries/botframework-connector
         pip install -e ./libraries/botbuilder-core
