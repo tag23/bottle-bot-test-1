@@ -28,17 +28,17 @@ jobs:
         chmod -R 777 ./activate
         ./activate
         cd ../../
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-schema
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botframework-connector
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-core
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-integration-aiohttp
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-ai
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-applicationinsights
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-integration-applicationinsights-aiohttp
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-dialogs
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-azure
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-adapters-slack
-        pip install --install-option="--prefix=$PREFIX_PATH/lib/python3.6" -e ./libraries/botbuilder-testing
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-schema
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botframework-connector
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-core
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-integration-aiohttp
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-ai
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-applicationinsights
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-integration-applicationinsights-aiohttp
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-dialogs
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-azure
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-adapters-slack
+        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-testing
         pip install --target=/opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6 --user -r requirements.txt
 #        cd ../../../../../../opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6/
 #        ls
