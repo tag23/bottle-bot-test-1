@@ -29,6 +29,8 @@ jobs:
         ./activate
         cd ../../
         pip install --target=/opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6 -r requirements.txt
+        cd ../../../../../../opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6/
+        ls
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-schema
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botframework-connector
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-core
@@ -40,10 +42,6 @@ jobs:
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-azure
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-adapters-slack
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-testing
-#        cd ../../../../../../opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6/
-#        ls
-#        echo "----------------------"
-#        ls pkgconfig
 
     - name: Zip the application files
       run: |
