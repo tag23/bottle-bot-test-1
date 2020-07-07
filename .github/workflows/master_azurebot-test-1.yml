@@ -32,11 +32,13 @@ jobs:
         pip install --target=/opt/hostedtoolcache/Python/3.6.10/x64/lib/python3.6/site-packages/ -r requirements.txt
         cd ../../../../../../opt/hostedtoolcache/Python/3.6.10/x64/
         echo "--- include ---"
-        ls include
+        ls include/python3.6m/
         echo "--- bin ---"
-        ls bin
+        ls bin/python3.6/
+        echo "~~~~~~~~~~~"
+        ls bin/python3.6m/
         echo "--- python ---"
-        ls python
+        ls python/python/
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-schema
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botframework-connector
 #        pip install --install-option="--prefix=$PREFIX_PATH" -e ./libraries/botbuilder-core
