@@ -30,7 +30,9 @@ jobs:
 
         cd ../../
         cd ../../../../../../opt/hostedtoolcache/Python/3.6.10/x64/lib/
-        ls
+        ls python3.6
+        echo "----------------------"
+        ls pkgconfig
 #        pip install -e ./libraries/botbuilder-schema
 #        pip install -e ./libraries/botframework-connector
 #        pip install -e ./libraries/botbuilder-core
