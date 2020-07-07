@@ -27,6 +27,7 @@ jobs:
         cd env/Scripts/
         chmod -R 777 ./activate
         ./activate
+
         cd ../../
         pip install -e ./libraries/botbuilder-schema
         pip install -e ./libraries/botframework-connector
@@ -40,6 +41,9 @@ jobs:
         pip install -e ./libraries/botbuilder-adapters-slack
         pip install -e ./libraries/botbuilder-testing
         pip install --user -r requirements.txt
+        sudo find . -name opt
+        cd ../../../../../../
+        ls
     - name: Zip the application files
       run: |
         sudo apt-get install zip gzip tar
