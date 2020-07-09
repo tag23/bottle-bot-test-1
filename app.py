@@ -40,15 +40,11 @@ try:
 except ValueError:
     PORT = 3978
 
-if '--debug' in sys.argv[1:] or 'SERVER_DEBUG' in os.environ:
-    # Debug mode will enable more verbose output in the console window.
-    # It must be set at the beginning of the script.
-    bottle.debug(True)
+# if '--debug' in sys.argv[1:] or 'SERVER_DEBUG' in os.environ:
+#     # Debug mode will enable more verbose output in the console window.
+#     # It must be set at the beginning of the script.
+#     bottle.debug(True)
 
-def wsgi_app():
-    """Returns the application to make available through wfastcgi. This is used
-    when the site is published to Microsoft Azure."""
-    return bottle.default_app()
 
 
 async def messages(req: Request) -> Response:
@@ -72,3 +68,9 @@ APP.router.add_post("/api/messages", messages)
 # Starts a local test server.
 # bottle.run(APP, host=HOST, port=PORT, reloader=True)
 web.run_app(APP, host=HOST, port=PORT)
+
+def wsgi_app():
+    """Returns the application to make available through wfastcgi. This is used
+    when the site is published to Microsoft Azure."""
+    # return bottle.default_app()
+    return web.run_app(APP, host=HOST, port=PORT)
