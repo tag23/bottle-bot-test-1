@@ -1,6 +1,15 @@
-# BottleAppAzure [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
+# Python Azure bot
 
-Bottle is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.
-- [Get Started](http://bottlepy.org/docs/dev/index.html)
-- [Development blog](http://blog.bottlepy.org/)
-"# bottle-bot-test-1" 
+>```web.config``` - используется для распознования azure приложения и понимания как запускать проект. Там находится handler, настройки приложения, настройки отладки и всяческие переменные.
+
+>```./github/workflows/master_azurebot-test-1.yml``` - файл для конфигурации деплоя через **github actions** где файл разбивается на определённые шаги по которым github собирает, подготавливает проект:
+> * выбирается версия python который будет использоваться;
+> * настраивается и включается виртуальное окружение python, чтобы установить все необходимые библиотеки;
+> * упаковывается проект;
+> * устаналиваются настройки публикации проекта.
+
+>```app.py``` - основной запуской файл, где находится APP который берёт настройки из ```config.py```.
+
+>```./bots/custom_prompt_bot.py``` - логика бота.
+
+В данный момент web.config скорее всего использует неправильный **handler** который в свою очередь использует файл ```ptvs_virtualenv_proxy.py``` и ```app.wsgi_app``` функцию.
