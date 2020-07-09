@@ -74,11 +74,11 @@ class CustomPromptBot(ActivityHandler):
 
     def get_account_by_login(self, login):
         try:
-            response = requests.post(url='http://10.0.22.62/api/v1.0',
+            response = requests.post(url='http://10.0.22.62/api/v1.0?api_key=9hehcLnTSgO6XX_eZTvfNQ',
                                      json={'id': None, 'jsonrpc': '2.0', 'method': 'account:get_list', 'params': {'filter': {'messenger': login}}})
             print('RESPONCSE,', response.json())
             if response.status_code == STATUS_CODE__SUCCESS:
-                response_data = response.json()['account_list']
+                response_data = response.json()['result']['account_list']
                 print(response_data)
 
                 if len(response_data) == 1:
@@ -91,33 +91,33 @@ class CustomPromptBot(ActivityHandler):
     async def _fill_out_user_profile(
         self, flow: ConversationFlow, profile: UserProfile, turn_context: TurnContext
     ):
-        # user_object = dict(eval(json.dumps(Activity.serialize(turn_context.activity))))
-        # self.update_user_login(user_object)
+        user_object = dict(eval(json.dumps(Activity.serialize(turn_context.activity))))
+        self.update_user_login(user_object)
 
         user_input = turn_context.activity.text.strip()
 
         # ask for name
         if flow.last_question_asked == Question.NONE:
-            # auth_user = self.get_account_by_login(self.user_skype_login)
-            # self.update_user_object(auth_user)
-            #
-            # if not self.user_skype_object:
-            #     await turn_context.send_activity(
-            #         MessageFactory.text("We can't identify you. Please contact to support skype")
-            #     )
-            # else:
-            #     await turn_context.send_activity(
-            #         MessageFactory.text(f"Hello, {self.user_skype_object['name']}")
-            #     )
-            # self.auth = True if self.user_skype_object else False
-            #
-            # if self.auth:
-            #     flow.last_question_asked = Question.ALLOCATION
+            auth_user = self.get_account_by_login(self.user_skype_login)
+            self.update_user_object(auth_user)
 
-            await turn_context.send_activity(
-                MessageFactory.text(f"Hello")
-            )
-            flow.last_question_asked = Question.ALLOCATION
+            if not self.user_skype_object:
+                await turn_context.send_activity(
+                    MessageFactory.text("We can't identify you. Please contact to support skype")
+                )
+            else:
+                await turn_context.send_activity(
+                    MessageFactory.text(f"Hello, {self.user_skype_object['name']}")
+                )
+            self.auth = True if self.user_skype_object else False
+
+            if self.auth:
+                flow.last_question_asked = Question.ALLOCATION
+
+            # await turn_context.send_activity(
+            #     MessageFactory.text(f"Hello")
+            # )
+            # flow.last_question_asked = Question.ALLOCATION
 
         # validate name then ask for age
         elif flow.last_question_asked == Question.ALLOCATION:
