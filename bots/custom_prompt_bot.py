@@ -20,7 +20,7 @@ from data_models import ConversationFlow, Question, UserProfile
 
 
 STATUS_CODE__SUCCESS = 200
-
+BOT_API_KEY = ''
 
 class ValidationResult:
     def __init__(
@@ -74,7 +74,7 @@ class CustomPromptBot(ActivityHandler):
 
     def get_account_by_login(self, login):
         try:
-            response = requests.post(url='http://10.0.22.62/api/v1.0?api_key=9hehcLnTSgO6XX_eZTvfNQ',
+            response = requests.post(url=f'http://10.0.22.62/api/v1.0?api_key={BOT_API_KEY}',
                                      json={'id': None, 'jsonrpc': '2.0', 'method': 'account:get_list', 'params': {'filter': {'messenger': login}}})
             print('RESPONCSE,', response.json())
             if response.status_code == STATUS_CODE__SUCCESS:
